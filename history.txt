@@ -1,0 +1,97 @@
+    2  vi ~/.bashrc
+    7  vi ~/.zshrc
+   16  ./install.sh
+   19  sudo fc-cache -fv
+   20  sudo apt install fc-cache
+   21  sudo apt-get install fonts-powerline
+   22  apt-get install fonts-hack-ttf
+   23  sudo apt-get install fonts-hack-ttf
+   24  sudo fs-cache 
+   25  vi ~/.zshrc
+   29  mkdir projects
+   31  git clone https://github.com/powerline/fonts.git
+   33  /install.sh
+   34  sudo ./install.sh
+   35  echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"
+   56  sudo apt install openssh-server
+   57  sudo sed -i -E 's,^#?Port.*$,Port 2022,' /etc/ssh/sshd_config
+   59  sudo service ssh restart
+   60  sudo sh -c "echo '${USER} ALL=(root) NOPASSWD: /usr/sbin/service ssh start' >/etc/sudoers.d/service-ssh-start"
+   61  sudo /usr/sbin/service ssh start
+   67  sudo apt install npm
+   68  sudo apt install nvm
+   68  sudo apt install fnm
+   71  curl -o https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+   73  bash /mnt/c/Users/Gilad/Downloads/install.sh
+   83  vi /home/giladl/.zshrc
+  284  sudo rm -rf /usr/local/go
+  297  sudo tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz
+  298  export PATH=$PATH:/usr/local/go/bin
+  299  vi ~/.profile
+  614  sudo apt install fzf
+  615  $HOME/.fzf.zsh
+  644  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\n~/.fzf/install
+  646  sudo apt install fzf
+  647  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\n~/.fzf/install
+  648  fzf
+  650  source ~/.zshrc
+  651  vi ~/.zshrc
+  671  which fzf
+  672  $(which fzf) --version
+  674  source ~/.zshrc
+  675  whereis fzf
+  676  sudo apt-get remove --purge fzf
+  728  touch presigned-url/internal/service/get_resource.go
+  729  rm presigned-url/internal/service/get_resource.go
+  768  pg
+  848  sudo apt-get update && sudo apt-get install -yqq daemonize dbus-user-session fontconfig
+  850  vi /usr/sbin/start-systemd-namespace
+  851  sudo vi /usr/sbin/start-systemd-namespace
+  852  sudo vi /usr/sbin/enter-systemd-namespace
+  853  sudo chmod +x /usr/sbin/enter-systemd-namespace
+  854  sudo visudo
+  856  sudo vi /etc/bash.bashrc
+  857  sudo sed -i 2a"# Start or enter a PID namespace in WSL2\nsource /usr/sbin/start-systemd-namespace\n" /etc/bash.bashrc
+  865  mv /mnt/c/Users/Gilad/Downloads/nvim-linux64.deb /tmp
+  866  sudo apt install /tmp/nvim-linux64.deb
+  867  sudo apt remove neovim-runtime
+  868  sudo apt install /tmp/nvim-linux64.deb
+  870  $ curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb\n$ sudo dpkg -i ripgrep_13.0.0_amd64.deb
+  871  curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb\nsudo dpkg -i ripgrep_13.0.0_amd64.deb
+  873  ripgrep
+  874  rg
+  923  vi config.yaml
+ 1074  sudo vi /etc/wsl.conf
+ 1078  sudo apt update && \\nsudo apt install openssh-server
+ 1079  sudo service ssh status
+ 1226  export PATH=$PATH:/home/giladl/go/bin
+ 1320  python3 -m precommit
+ 1321  ~/.local/bin
+ 1322  export PATH=$PATH:/home/giladl/.local/bin
+ 1334  tail /home/giladl/.cache/pre-commit/pre-commit.log
+ 1347  vi ~/.zshrc
+ 1360  wsl.exe -d Ubuntu -u root nano /usr/sbin/enter-systemd-namespace
+ 1366  vi ~/.zshrc
+ 1369  source ~/.zshrc
+ 1375  vi /usr/sbin/enter-systemd-namespace
+ 1376  sudo vi /usr/sbin/enter-systemd-namespace
+ 1377  sudo chmod +x /usr/sbin/enter-systemd-namespace
+ 1380  sudo apt-get install daemonize
+ 1381  which daemonize
+ 1382  vi ~/.zshrc
+ 1383  vi ~/.bashrc
+ 1385  source ~/.zshrc
+ 1398  vi /etc/bash.bashrc
+ 1406  sudo apt-get remove -yqq daemonize dbus-user-session fontconfig
+ 1411  sudo apt-get install -yqq daemonize dbus-user-session fontconfig
+ 1412  sudo vi /usr/sbin/enter-systemd-namespace
+ 1416  sudo vi /etc/bash.bashrc
+ 1417  restart
+ 1424  echo $GOPATH/bin
+ 1426  make setup
+ 1435  make setup
+ 1437  vi README.md
+ 1492  git push
+ 1494  vi ./.github/workflows/pre-commit.yaml
+ 1543  vi .pre-commit-config.yaml
+ 1662  git clone https://github.com/nvim-lua/kickstart.nvim.git ~/.config/nvim
