@@ -6,7 +6,7 @@ sudo apt-get install -y vim zsh git openssh-server npm curl daemonize dbus-user-
 
 # Install specific versions or packages from URLs
 sudo apt-get install -y fc-cache fonts-powerline fonts-hack-ttf
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+curl -fsSL https://fnm.vercel.app/install | bash
 curl -LO https://dl.google.com/go/go1.20.3.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
@@ -51,3 +51,4 @@ mkdir ~/projects
 
 # Cleanup
 sudo apt-get autoremove -y
+
