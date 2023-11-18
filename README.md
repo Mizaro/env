@@ -1,5 +1,13 @@
 # Setup your wsl
 
+## Run
+
+```
+git clone https://github.com/Mizaro/linux-env.git
+cd linux-env
+bash setup.sh
+```
+
 ## Source
 
 Powerline Fonts: https://github.com/powerline/fonts.git
