@@ -59,11 +59,11 @@ if is_cmd zsh; then
 fi
 
 # --- Oh My Zsh (idempotent) ---
-# NOTE: your script currently checks [[ ! -d "$HOME/." ]] — that’s a bug.
+[ -f "${HOME}/.zshrc" ] || rm "${HOME}/.zshrc"
 # We should check ~/.oh-my-zsh instead.
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+  RUNZSH=no CHSH=no KEEP_ZSHRC=no \
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 # Ensure .zshrc exists (kept if present; we do NOT overwrite it)
