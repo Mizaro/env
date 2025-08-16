@@ -129,6 +129,8 @@ fi
 "${HOME}/.fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish --no-zsh
 append_once "${HOME}/.zshrc" '# fzf (zsh)'
 append_once "${HOME}/.zshrc" '[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh'
+append_once "${HOME}/.zshrc" '# Set up fzf key bindings and fuzzy completion'
+append_once "${HOME}/.zshrc" 'source <(fzf --zsh)'
 
 # --- Fonts cache refresh ---
 fc-cache -fv >/dev/null || true
