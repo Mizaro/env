@@ -50,28 +50,23 @@ else
 fi
 
 # --- Fast Node Manager (fnm) ---
-if [[ ! -d "${HOME}/.fnm" ]]; then
-  curl -fsSL https://fnm.vercel.app/install | bash
+if [[ ! -d "${HOME}/.local/share/fnm" ]]; then
+  curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
 fi
 
-# Add fnm init to shells (idempotent)
-FNM_INIT='eval "$(fnm env --use-on-cd)"'
-append_once "${HOME}/.bashrc" "$FNM_INIT"
-append_once "${HOME}/.zshrc"  "$FNM_INIT"
-# Ensure PATH contains fnm binary directory for both shells
-append_once "${HOME}/.bashrc" 'export PATH="$HOME/.fnm/bin:$PATH"'
-append_once "${HOME}/.zshrc"  'export PATH="$HOME/.fnm/bin:$PATH"'
+# zsh init for fnm (use-on-cd = auto switch per project)
+append_once "${HOME}/.zshrc"    'FNM_PATH="$HOME/.local/share/fnm"; [ -d "$FNM_PATH" ] && export PATH="$FNM_PATH:$PATH" && eval "$(fnm env --use-on-cd)"'
+append_once "${HOME}/.zprofile" 'FNM_PATH="$HOME/.local/share/fnm"; [ -d "$FNM_PATH" ] && export PATH="$FNM_PATH:$PATH"'
 
 # Ensure fnm is on PATH for this session
-export PATH="$HOME/.fnm/bin:$PATH"
-# Install a Node LTS (if none installed) and set default
-if ! is_cmd fnm; then
-  echo "fnm failed to install (missing at $HOME/.fnm/bin/fnm)." >&2
-  exit 1
+export FNM_PATH="$HOME/.local/share/fnm"
+export PATH="$FNM_PATH:$PATH"
+if [ -d "$FNM_PATH" ]; then
+  eval "$(fnm env --use-on-cd)"
 fi
-# Reload fnm env for this session
-eval "$(fnm env --use-on-cd)"
-if ! is_cmd node; then
+
+# Install a Node LTS (if none installed) and set default
+if is_cmd fnm && ! is_cmd node; then
   fnm install --lts
   fnm default lts
 fi
