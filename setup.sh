@@ -116,7 +116,7 @@ if [[ -d "${HOME}/.fzf" ]]; then
 else
   git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
 fi
-"${HOME}/.fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish --no-zsh
+"${HOME}/.fzf/install" --key-bindings --completion --update-rc --no-bash --no-fish
 append_once "${HOME}/.zshrc" '# fzf (zsh)'
 append_once "${HOME}/.zshrc" '[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh'
 append_once "${HOME}/.zshrc" '# Set up fzf key bindings and fuzzy completion'
