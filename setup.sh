@@ -65,10 +65,9 @@ if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-if [ -f "${HOME}/.zshrc" ] then
-  echo "Cannot find .zshrc "; exit 1
+if [ ! -f "${HOME}/.zshrc" ]; then
+  echo "Cannot find .zshrc"; exit 1
 fi
-
 
 # --- Fast Node Manager (fnm) ---
 if [[ ! -d "${HOME}/.local/share/fnm" ]]; then
