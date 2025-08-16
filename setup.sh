@@ -50,20 +50,31 @@ else
   IS_WSL=0
 fi
 
-# --- Oh My Zsh ---
-if [[ ! -d "$HOME/." ]]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-  chsh -s "$(which zsh)" || true
+# --- Zsh as default (idempotent) ---
+if is_cmd zsh; then
+  ZSH_PATH="$(command -v zsh)"
+  if [[ "${SHELL:-}" != "$ZSH_PATH" ]]; then
+    chsh -s "$ZSH_PATH" "$USER" || true
+  fi
 fi
 
+# --- Oh My Zsh (idempotent) ---
+# NOTE: your script currently checks [[ ! -d "$HOME/." ]] — that’s a bug.
+# We should check ~/.oh-my-zsh instead.
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+fi
+
+# Ensure .zshrc exists (kept if present; we do NOT overwrite it)
+[ -f "${HOME}/.zshrc" ] || touch "${HOME}/.zshrc"
+
+
 # --- Fast Node Manager (fnm) ---
-# Install fnm if missing
 if [[ ! -d "${HOME}/.local/share/fnm" ]]; then
   curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
 fi
 
-# Minimal, clean zsh initialization for fnm
-# Keep PATH in zprofile (login), and eval in zshrc (interactive)
 append_once "${HOME}/.zprofile" '# fnm (PATH only)'
 append_once "${HOME}/.zprofile" 'export FNM_PATH="$HOME/.local/share/fnm"'
 append_once "${HOME}/.zprofile" '[ -d "$FNM_PATH" ] && export PATH="$FNM_PATH:$PATH"'
@@ -72,42 +83,21 @@ append_once "${HOME}/.zshrc" '# fnm init (interactive)'
 append_once "${HOME}/.zshrc" 'export FNM_PATH="$HOME/.local/share/fnm"'
 append_once "${HOME}/.zshrc" '[ -d "$FNM_PATH" ] && eval "$(fnm env --use-on-cd)"'
 
-# Make fnm available in current session
 export FNM_PATH="$HOME/.local/share/fnm"
 [ -d "$FNM_PATH" ] && export PATH="$FNM_PATH:$PATH"
 if is_cmd fnm; then
   eval "$(fnm env --use-on-cd)"
-  # Install an LTS Node on first run (do not set default to avoid global flips)
   if ! is_cmd node; then
     fnm install --lts || true
   fi
 fi
 
-# --- Neovim install (latest stable via tarball) ---
-# Remove any older apt neovim to avoid confusion
+# --- Neovim install (latest stable via snap for now) ---
 sudo apt-get remove -y neovim || true
+sudo snap install nvim --classic || true
 
-# Fetch latest stable tarball URL and install to /opt
-LATEST_URL=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest \
-  | grep browser_download_url \
-  | grep nvim-linux-x86_64.tar.gz \
-  | cut -d '"' -f 4)
-NVIM_TGZ="nvim-linux-x86_64.tar.gz"
-curl -fL -o "$NVIM_TGZ" "$LATEST_URL"
-
-sudo rm -rf /opt/nvim-linux-x86_64
-sudo tar xzf "$NVIM_TGZ" -C /opt/
-rm -f "$NVIM_TGZ"
-
-NVIM_BIN="/opt/nvim-linux-x86_64/bin/nvim"
-if [[ ! -x "$NVIM_BIN" ]]; then
-  echo "Neovim installation failed." >&2
-  exit 1
-fi
-
-# Only add PATH once, in zprofile (login). Do NOT also add to zshrc.
 append_once "${HOME}/.zprofile" '# Neovim PATH'
-append_once "${HOME}/.zprofile" 'export PATH="/opt/nvim-linux-x86_64/bin:$PATH"'
+append_once "${HOME}/.zprofile" 'export PATH="/snap/bin:$PATH"'
 
 # --- Neovim config (kickstart) ---
 CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
@@ -119,7 +109,7 @@ fi
 git clone https://github.com/Mizaro/kickstart.nvim.git "$CFG_DIR"
 
 # Headless plugin sync
-"$NVIM_BIN" --headless "+Lazy! sync" +qa || true
+nvim --headless "+Lazy! sync" +qa || true
 
 # --- FZF (idempotent, zsh-only) ---
 if [[ -d "${HOME}/.fzf" ]]; then
