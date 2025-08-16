@@ -65,10 +65,9 @@ if [ -d "$FNM_PATH" ]; then
   eval "$(fnm env --use-on-cd)"
 fi
 
-# Install a Node LTS (if none installed) and set default
+# Install a Node LTS (if none installed)
 if is_cmd fnm && ! is_cmd node; then
   fnm install --lts
-  fnm default lts
 fi
 
 # --- Neovim install (single system copy under /opt) --- (single system copy under /opt) ---
