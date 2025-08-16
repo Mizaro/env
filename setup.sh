@@ -70,26 +70,13 @@ if is_cmd fnm && ! is_cmd node; then
   fnm install --lts
 fi
 
-# --- Neovim install (single system copy under /opt) --- (single system copy under /opt) ---
-NVIM_DIR="/opt/nvim-linux64"
-NVIM_TGZ="nvim-linux64.tar.gz"
+# --- Neovim install via apt ---
+sudo apt-get install -y neovim
 
-if ! is_cmd nvim && [[ ! -x "${NVIM_DIR}/bin/nvim" ]]; then
-  curl -fL -o "${NVIM_TGZ}" https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-  sudo tar xzf "${NVIM_TGZ}" -C /opt/
-  rm -f "${NVIM_TGZ}"
-fi
-
-# Put Neovim on PATH for bash & zsh (idempotent)
-append_once "${HOME}/.profile" 'export PATH=$PATH:/opt/nvim-linux64/bin'
-append_once "${HOME}/.bashrc"  'export PATH=$PATH:/opt/nvim-linux64/bin'
-append_once "${HOME}/.zshrc"   'export PATH=$PATH:/opt/nvim-linux64/bin'
-
-# Use absolute path now (PATH may not be reloaded yet)
-NVIM_BIN="${NVIM_DIR}/bin/nvim"
-if [[ ! -x "$NVIM_BIN" ]]; then
-  # Fallback if user already had nvim elsewhere
-  if is_cmd nvim; then NVIM_BIN="$(command -v nvim)"; else echo "Neovim not found."; exit 1; fi
+NVIM_BIN="$(command -v nvim || true)"
+if [[ -z "$NVIM_BIN" ]]; then
+  echo "Neovim installation failed." >&2
+  exit 1
 fi
 
 # --- Neovim config (kickstart) ---
