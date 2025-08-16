@@ -59,7 +59,7 @@ if is_cmd zsh; then
 fi
 
 # --- Oh My Zsh (idempotent) ---
-[ -f "${HOME}/.zshrc" ] || rm "${HOME}/.zshrc"
+[ -f "${HOME}/.zshrc" ] || rm -f "${HOME}/.zshrc"
 # We should check ~/.oh-my-zsh instead.
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
   RUNZSH=no CHSH=no KEEP_ZSHRC=no \
