@@ -133,6 +133,11 @@ append_once "${HOME}/.zshrc" '[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh'
 # --- Fonts cache refresh ---
 fc-cache -fv >/dev/null || true
 
+# --- Oh My Zsh ---
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+fi
+
 # --- Projects dir ---
 mkdir -p "${HOME}/projects"
 
