@@ -50,9 +50,10 @@ else
   IS_WSL=0
 fi
 
-# --- Default shell: zsh ---
-if is_cmd zsh && [[ "$SHELL" != "$(command -v zsh)" ]]; then
-  chsh -s "$(command -v zsh)" || true
+# --- Oh My Zsh ---
+if [[ ! -d "$HOME/." ]]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+  chsh -s "$(which zsh)" || true
 fi
 
 # --- Fast Node Manager (fnm) ---
@@ -134,11 +135,6 @@ append_once "${HOME}/.zshrc" 'source <(fzf --zsh)'
 
 # --- Fonts cache refresh ---
 fc-cache -fv >/dev/null || true
-
-# --- Oh My Zsh ---
-if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-fi
 
 # --- Projects dir ---
 mkdir -p "${HOME}/projects"
