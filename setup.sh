@@ -51,7 +51,7 @@ fi
 
 # --- Fast Node Manager (fnm) ---
 if [[ ! -d "${HOME}/.fnm" ]]; then
-  curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+  curl -fsSL https://fnm.vercel.app/install | bash
 fi
 
 # Add fnm init to shells (idempotent)
