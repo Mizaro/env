@@ -70,14 +70,29 @@ if is_cmd fnm && ! is_cmd node; then
   fnm install --lts
 fi
 
-# --- Neovim install via apt ---
-sudo apt-get install -y neovim
+# --- Neovim install (latest stable via tarball) ---
+# Remove any older Neovim package first
+sudo apt-get remove -y neovim || true
 
-NVIM_BIN="$(command -v nvim || true)"
-if [[ -z "$NVIM_BIN" ]]; then
+# Download latest stable tarball from GitHub
+LATEST_URL=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep browser_download_url | grep nvim-linux-x86_64.tar.gz | cut -d '"' -f 4)
+NVIM_TGZ="nvim-linux-x86_64.tar.gz"
+curl -fL -o "$NVIM_TGZ" "$LATEST_URL"
+
+# Extract to /opt
+sudo rm -rf /opt/nvim-linux-x86_64
+sudo tar xzf "$NVIM_TGZ" -C /opt/
+rm -f "$NVIM_TGZ"
+
+NVIM_BIN="/opt/nvim-linux-x86_64/bin/nvim"
+if [[ ! -x "$NVIM_BIN" ]]; then
   echo "Neovim installation failed." >&2
   exit 1
 fi
+
+# Put Neovim on PATH for zsh
+append_once "${HOME}/.zprofile" 'export PATH="/opt/nvim-linux-x86_64/bin:$PATH"'
+append_once "${HOME}/.zshrc"    'export PATH="/opt/nvim-linux-x86_64/bin:$PATH"'
 
 # --- Neovim config (kickstart) ---
 CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
