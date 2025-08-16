@@ -1,10 +1,10 @@
-# Setup your wsl
+# Setup your WSL
 
 ## Run
 
 ```
-git clone https://github.com/Mizaro/linux-env.git
-cd linux-env
+git clone https://github.com/Mizaro/env.git
+cd env
 bash setup.sh
 ```
 
