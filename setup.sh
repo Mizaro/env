@@ -60,14 +60,14 @@ fi
 
 # --- Oh My Zsh (idempotent) ---
 [ -f "${HOME}/.zshrc" ] || rm -f "${HOME}/.zshrc"
-# We should check ~/.oh-my-zsh instead.
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
   RUNZSH=no CHSH=no KEEP_ZSHRC=no \
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-# Ensure .zshrc exists (kept if present; we do NOT overwrite it)
-[ -f "${HOME}/.zshrc" ] || touch "${HOME}/.zshrc"
+if [ -f "${HOME}/.zshrc" ] then
+  echo "Cannot find .zshrc "; exit 1
+fi
 
 
 # --- Fast Node Manager (fnm) ---
