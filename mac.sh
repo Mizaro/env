@@ -6,6 +6,7 @@ brew services start docker-machine
 git lfs install
 brew install --cask google-chrome || true
 brew install --cask cursor slack visual-studio-code
+brew install --cask microsoft-azure-storage-explorer
 brew install --cask rectangle jetbrains-toolbox whatsapp spotify sublime-text obsidian warp stremio 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 mkdir ~/projects || true
