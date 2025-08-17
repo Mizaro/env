@@ -1,6 +1,14 @@
-# Setup your WSL
+# Setup new machine
 
-## Run
+## Run on Mac
+
+```
+git clone https://github.com/Mizaro/env.git
+cd env
+bash mac.sh
+```
+
+## Run on WSL
 
 ```
 git clone https://github.com/Mizaro/env.git
