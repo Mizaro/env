@@ -12,3 +12,4 @@ brew install --cask google-chrome || true
 brew install --cask cursor slack visual-studio-code microsoft-azure-storage-explorer brave-browser rectangle jetbrains-toolbox whatsapp spotify sublime-text obsidian warp stremio 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 mkdir ~/projects || true
+sudo dscl . append /Groups/_developer GroupMembership $USER
