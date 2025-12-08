@@ -5,11 +5,11 @@ defaults write com.apple.AppleMultitouchTrackpad Dragging -bool false
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install fd zoxide fzf kubectl kubectx terraform gh go python@3.11 python@3.12 python@3.13 htop awscli cloc yq docker-machine docker coreutils git-lfs duckdb graphviz httrack git iterm2 neovim raycast azure-cli golangci-lint nvm
+brew install fd zoxide fzf kubectl kubectx terraform gh go python@3.11 python@3.12 python@3.13 htop awscli cloc yq docker-machine docker coreutils git-lfs duckdb graphviz httrack git neovim azure-cli golangci-lint nvm
 brew services start docker-machine
 git lfs install
 brew install --cask google-chrome || true
-brew install --cask cursor slack visual-studio-code microsoft-azure-storage-explorer brave-browser rectangle jetbrains-toolbox whatsapp spotify sublime-text obsidian 
+brew install --cask cursor slack visual-studio-code microsoft-azure-storage-explorer brave-browser rectangle jetbrains-toolbox whatsapp spotify sublime-text obsidian iterm2 raycast
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 mkdir ~/projects || true
 sudo dscl . append /Groups/_developer GroupMembership $USER
